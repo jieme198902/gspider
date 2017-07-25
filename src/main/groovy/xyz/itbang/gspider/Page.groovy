@@ -15,6 +15,7 @@ class Page implements Serializable{
     String crawlName
     String url = ''
     String text = ''
+    String charset = 'utf-8'
     boolean fail = false
     boolean noMoreLinks = false //要不要继续分析页面链接？用markNoMoreLinks()方法设置。
     List<String> links = new ArrayList<>()
@@ -99,7 +100,7 @@ class Page implements Serializable{
     void download(){
         downloadStart()
         try {
-            text = connection.execute().body()
+            text = connection.execute().charset(charset) .body()
         }catch (Exception e){
             e.printStackTrace()
             //重试，并设置状态
